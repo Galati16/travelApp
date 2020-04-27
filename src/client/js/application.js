@@ -20,20 +20,43 @@ function interactWithServer(userData) {
                 }) */
 };
 
+async function getBackgroundPic(userData) {
+    // for pixabay.com
+    const API_KEY = '16246175-c1b47574cb1cde5e99fd86e69';
+    const corsvar = 'https://cors-anywhere.herokuapp.com/';
+    const url = "https://pixabay.com/api/?key=" + API_KEY + "&q=" + encodeURIComponent(userData.city) + '&orientation=horizontal';
+    const respond = await fetch(corsvar + url, {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+            'Access-Control-Allow-Origin': 'http://localhost:8080/',
+        },
+        credentials: 'same-origin',
+    });
+    try {
+        const data = await respond.json();
+        const picData = data.hits[1].webformatURL;
+        if (data.hits.lenght <= 0) {
+            picData = 'https://pixabay.com/get/57e1d6434d51ad14f1dc84609629317c1139dfe2564c704c7d277bd6944ec750_640.jpg'
+        }
+        return picData;
+    } catch (error) {
+
+        console.log('error is:', error);
+    }
+};
+
+
 async function getWeather(userData, geoData) {
     // for weatherbit.io
     const key = 'c627a56641d3436e850950b7cf423119';
-    const corsvar = 'https://cors-anywhere.herokuapp.com/';
     let url = ''
     if (userData.daysAway > 7) {
         url = `https://api.weatherbit.io/v2.0/forecast/daily?lat=${geoData.lat}&lon=${geoData.lon}&key=${key}`;
-        //console.log(url);
     } else {
         url = `https://api.weatherbit.io/v2.0/current?lat=${geoData.lat}&lon=${geoData.lon}&key=${key}`;
-        //console.log(url)
     }
 
-    console.log(url)
     const respond = await fetch(corsvar + url, {
         method: 'GET',
         headers: {
@@ -54,7 +77,6 @@ async function getWeather(userData, geoData) {
     } catch (error) {
         console.log('error is:', error);
     }
-
 };
 
 async function getLonLat(userData) {
@@ -88,6 +110,7 @@ async function getLonLat(userData) {
  * Define Global Variables
  * 
  */
+const corsvar = 'https://cors-anywhere.herokuapp.com/';
 const buttonElement = document.getElementById('getLocationData');
 //const sections = document.getElementsByTagName('section');
 //const numberOfSections = document.getElementsByTagName('section').length; //MEMO:=4
@@ -103,6 +126,12 @@ buttonElement.addEventListener('click', function(evn) {
             getWeather(userData, geoData)
                 .then(function(weatherData) {
                     console.log('hier unten', weatherData, geoData, userData);
+                    getBackgroundPic(userData).
+                    then(function(picData) {
+                        //adjust html
+
+
+                    })
                 });
 
             //interactWithServer(userData);
