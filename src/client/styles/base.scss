@@ -1,0 +1,83 @@
+section footer {
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 14px;
+    display: grid;
+    grid-template-rows: 80px auto 10vh;
+    grid-template-areas: "hd" "main" "ft";
+    background-color: white;
+    justify-content: stretch;
+}
+
+a {
+    text-decoration: none;
+}
+
+p {
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.mainbox {
+    grid-area: main;
+    display: grid;
+    grid-template-columns: 100%;
+    grid-auto-rows: 80vh;
+    justify-content: stretch;
+    background-color: whitesmoke;
+    padding: 10px 0px;
+}
+
+.nested_pictures {
+    display: flex;
+    flex-direction: column;
+    justify-content: stretch;
+    align-items: center;
+    border: 2px solid whitesmoke;
+    padding: 5px;
+    background: black;
+    background-image: url("../media/red_canyon.JPG");
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+
+/* Caption on nested pictures */
+
+h2 {
+    text-align: center;
+    color: #fffff8;
+    border-top: 2px solid #fffff8;
+    border-bottom: 2px solid #fffff8;
+    background-color: rgba(68, 68, 68, 0.3);
+}
+
+#name {
+    text-align: center;
+    margin-bottom: 15px;
+}
+
+#getLocationData {
+    margin-top: 20px;
+}
+
+
+/* Button for "hier mehr" Button, it gets wider when cursor hovers over it */
+
+.button {
+    font-family: 'Courier New', Courier, monospace;
+    background-color: rgba($color: #000000, $alpha: 0.4);
+    font-weight: 500;
+    color: #fffff8;
+    padding: 3px 3px;
+    text-align: center;
+    font-size: 0.7em;
+    cursor: pointer;
+    width: 30%;
+    border: 2px solid #fffff8;
+    border-radius: 30%;
+}
+
+.button:hover {
+    background-color: rgba(255, 253, 253, 0.1);
+    color: #fffff8;
+    width: 33%;
+}
