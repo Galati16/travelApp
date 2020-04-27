@@ -1,12 +1,11 @@
 var path = require('path')
 const express = require('express')
-const mockAPIResponse = require('./mockAPI.js')
     //hiding priva api key
 const dotenv = require('dotenv');
 dotenv.config();
 
 //package for Api
-var aylien = require("aylien_textapi");
+
 
 //bodyParser middleware
 const bodyParser = require('body-parser');
@@ -19,10 +18,15 @@ app.use(bodyParser.json());
 
 console.log(__dirname)
 
-var textapi = new aylien({
-    application_id: process.env.API_ID,
-    application_key: process.env.API_KEY
-});
+// for Geo
+const geoNamesUser = process.env.GEODE_USERNAME;
+const geoNameBaseURL = 'http://api.geonames.org/searchJSON?username=' + geoNamesUser + '&placename='
+
+//http://api.geonames.org/searchJSON?q=london&maxRows=10&username=demo
+//for WeatherIO:
+const wioKey = process.env.WEATHERBIT_KEY;
+//for PIXABAY
+const pixabayKey = process.env.PIXABAY_KEY;
 
 app.get('/', function(req, res) {
     res.sendFile('dist/index.html')
@@ -35,17 +39,36 @@ app.listen(8080, function() {
 })
 
 
-app.get('/save', function(req, res) {
-            res.json(mockAPIResponse);
 
-            app.post("/analyze", (req, res) => {
-                console.log('im analyze post:', )
-                textapi.sentiment({
-                    url: req.body.text
-                }, function(error, response) {
-                    res.send(response)
-                    if (error === null) {
-                        console.log(response);
-                    }
-                })
-            });
+
+
+async function getWebApiData(url) {
+    const respond = await fetch(url)
+    try {
+        const data = await respond.json();
+        console.log(data)
+        return;
+    } catch (error) {
+        alert('Not a valid German zip code!Try something like 22559:)');
+        console.log('error is:', error);
+    }
+};
+
+app.post("/analyze", (req, res) => {
+        console.log('im analyze post:', req.body)
+        const data = req.body;
+    })
+    //getWebApiData(geoNameBaseURL + data.city);
+
+/* textapi.sentiment({
+    url: req.body.text
+}, function(error, response) {
+    res.send(response)
+    if (error === null) {
+        console.log(response);
+    }
+}) */
+
+app.get('/', function(req, res) {
+    console.log(res);
+})

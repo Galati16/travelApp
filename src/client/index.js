@@ -1,5 +1,7 @@
-import { mainFunction } from './js/application.js'
-//import { buttonClicked } from './js/formHandler'
+import { interactWithServer } from './js/application.js'
+import { getFormValues } from './js/interactWithHtml.js'
+import { getDaysToTrip } from './js/interactWithHtml.js'
+
 
 // import scss files:
 //import './styles/resets.scss'
@@ -10,5 +12,7 @@ import './styles/footer.scss'
 import './styles/dynamic_screen_size.scss'
 
 export {
-    mainFunction
+    interactWithServer,
+    getFormValues,
+    getDaysToTrip
 }

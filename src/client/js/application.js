@@ -1,20 +1,5 @@
-function mainFunction() {
-    //some text
-    console.log('some text');
-};
+function interactWithServer(userData) {
 
-function getFormValues(evn) {
-    /* //match section element Id ..to.. text of list item (remove whitespaces)
-    const sectionIdToGoTo = evn.target.textContent.replace(/\s/g, '').toLowerCase();
-    let sectionToGoTo = document.getElementById(sectionIdToGoTo);
-    boundingSection = sectionToGoTo.getBoundingClientRect();
-    //determine distance to scroll
-    window.scrollTo({ top: boundingSection.top + window.scrollY, left: 0, behavior: "smooth" });;
-    //Wouldn't this solution be easier? Is there an disadvange? Is compability an issue?
-    //sectionToGoTo.scrollIntoView({ block: "start", behavior: "smooth" }); */
-};
-
-function interactWithServer(evn) {
 
     console.log("::: Form Submitted :::");
     fetch('http://localhost:8080/analyze', {
@@ -23,19 +8,45 @@ function interactWithServer(evn) {
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify({ text: formText })
+            body: JSON.stringify(userData)
         })
-        .then(function(res) {
-            return res.json()
-        })
-        .then(function(res) {
-            //document.getElementById("polarity").innerHTML = res.polarity + '   with a polarity confidence of ' + res.polarity_confidence;
-            //document.getElementById("subjectivity").innerHTML = res.subjectivity + '   with a subjectivity confidence of ' + res.subjectivity_confidence;
-            //document.getElementById("text").innerHTML = res.text;
-        })
+        /*         .then(function(res) {
+                    return res.json()
+                })
+                .then(function(res) {
+                    //document.getElementById("polarity").innerHTML = res.polarity + '   with a polarity confidence of ' + res.polarity_confidence;
+                    //document.getElementById("subjectivity").innerHTML = res.subjectivity + '   with a subjectivity confidence of ' + res.subjectivity_confidence;
+                    //document.getElementById("text").innerHTML = res.text;
+                }) */
 };
 
-export { mainFunction }
+async function getLonLat(userData) {
+    // for Geo
+    const corsvar = 'https://cors-anywhere.herokuapp.com/';
+
+    const geoNameBaseURL = corsvar + 'http://api.geonames.org/wikipediaSearchJSON?username=fortunis&q='
+    console.log(geoNameBaseURL + userData.city)
+
+    const respond = await fetch(geoNameBaseURL + userData.city, {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+            'Access-Control-Allow-Origin': 'http://localhost:8080/',
+        },
+        credentials: 'same-origin',
+    });
+    try {
+        const data = await respond.json();
+        console.log(data);
+        console.log(data.geonames[0].lat, data.geonames[0].lng, data.geonames[0].countryCode);
+        return
+    } catch (error) {
+        alert('Not a valid German zip code!Try something like 22559:)');
+        console.log('error is:', error);
+    }
+
+};
+
 /**
  * Define Global Variables
  * 
@@ -49,5 +60,10 @@ const buttonElement = document.getElementById('getLocationData');
 
 buttonElement.addEventListener('click', function(evn) {
     evn.preventDefault();
-    getFormValues(evn);
+    const userData = myLib.getFormValues();
+    getLonLat(userData);
+    //interactWithServer(userData);
+
 });
+
+export { interactWithServer }
