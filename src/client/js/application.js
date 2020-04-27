@@ -20,12 +20,47 @@ function interactWithServer(userData) {
                 }) */
 };
 
-async function getLonLat(userData) {
-    // for Geo
+async function getWeather(userData, geoData) {
+    // for weatherbit.io
+    const key = 'c627a56641d3436e850950b7cf423119';
     const corsvar = 'https://cors-anywhere.herokuapp.com/';
+    let url = ''
+    if (userData.daysAway > 7) {
+        url = `https://api.weatherbit.io/v2.0/forecast/daily?lat=${geoData.lat}&lon=${geoData.lon}&key=${key}`;
+        //console.log(url);
+    } else {
+        url = `https://api.weatherbit.io/v2.0/current?lat=${geoData.lat}&lon=${geoData.lon}&key=${key}`;
+        //console.log(url)
+    }
 
+    console.log(url)
+    const respond = await fetch(corsvar + url, {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+            'Access-Control-Allow-Origin': 'http://localhost:8080/',
+        },
+        credentials: 'same-origin',
+    });
+    try {
+        const data = await respond.json();
+        const weatherData = {
+            Temp: data.data[0].temp,
+            windSpeed: data.data[0].wind_spd,
+            precip: data.data[0].precip,
+            weatherDescription: data.data[0].weather.description
+        }
+        return weatherData
+    } catch (error) {
+        console.log('error is:', error);
+    }
+
+};
+
+async function getLonLat(userData) {
+    // for Geonames
+    const corsvar = 'https://cors-anywhere.herokuapp.com/';
     const geoNameBaseURL = corsvar + 'http://api.geonames.org/wikipediaSearchJSON?username=fortunis&q='
-    console.log(geoNameBaseURL + userData.city)
 
     const respond = await fetch(geoNameBaseURL + userData.city, {
         method: 'GET',
@@ -37,14 +72,16 @@ async function getLonLat(userData) {
     });
     try {
         const data = await respond.json();
-        console.log(data);
-        console.log(data.geonames[0].lat, data.geonames[0].lng, data.geonames[0].countryCode);
-        return
+        const GeoData = {
+            lat: data.geonames[0].lat,
+            lon: data.geonames[0].lng,
+            country: data.geonames[0].countryCode
+        }
+        return GeoData
     } catch (error) {
-        alert('Not a valid German zip code!Try something like 22559:)');
+        alert('City too small or spelled incorrectly!');
         console.log('error is:', error);
     }
-
 };
 
 /**
@@ -61,9 +98,15 @@ const buttonElement = document.getElementById('getLocationData');
 buttonElement.addEventListener('click', function(evn) {
     evn.preventDefault();
     const userData = myLib.getFormValues();
-    getLonLat(userData);
-    //interactWithServer(userData);
+    getLonLat(userData)
+        .then(function(geoData) {
+            getWeather(userData, geoData)
+                .then(function(weatherData) {
+                    console.log('hier unten', weatherData, geoData, userData);
+                });
 
-});
+            //interactWithServer(userData);
 
+        });
+})
 export { interactWithServer }
