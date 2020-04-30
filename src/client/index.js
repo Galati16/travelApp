@@ -1,6 +1,7 @@
 import { interactWithServer } from './js/application.js'
 import { getFormValues } from './js/interactWithHtml.js'
 import { getDaysToTrip } from './js/interactWithHtml.js'
+import { addTravelDisToHtml } from './js/interactWithHtml.js'
 
 
 // import scss files:
@@ -14,5 +15,6 @@ import './styles/dynamic_screen_size.scss'
 export {
     interactWithServer,
     getFormValues,
-    getDaysToTrip
+    getDaysToTrip,
+    addTravelDisToHtml
 }

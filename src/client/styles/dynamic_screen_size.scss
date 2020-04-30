@@ -1,11 +1,11 @@
 @media(min-width: 600px) and (max-width:900px) {
-    section {
-        width: 99vw;
-    }
     /* ------------ homepage-------------- */
-    .mainbox {
-        grid-template-columns: 50% 50%;
-        grid-auto-rows: 80vw 80vw;
+    main {
+        grid-template-columns: 40% 60%;
+        grid-auto-rows: minmax(70vh, auto) minmax(70vh, auto);
+    }
+    #start {
+        width: 35vw;
     }
     /* ------------blog pages-------------- */
     .blogbox {
@@ -14,20 +14,20 @@
         grid-template-areas: "text topic" "text topic";
     }
     .topic_picture {
-        width: 25vw;
+        width: 17vw;
         height: 15vw;
     }
 }
 
 @media(min-width:901px) {
-    .section {
-        width: 99vw;
-        font-size: 24px;
-    }
     /* ------------ homepage-------------- */
-    .mainbox {
+    main {
+        font-size: 24px;
         grid-template-columns: 1fr 1fr;
-        grid-auto-rows: 30vw 30vw;
+        grid-auto-rows: 75vh 75vh;
+    }
+    #start {
+        width: 50vw;
     }
     /* ------------blog pages-------------- */
     .blogbox {
@@ -38,7 +38,7 @@
         font-size: 0.7 em;
     }
     .topic_picture {
-        width: 25vw;
+        width: 24vw;
         height: 15vw;
     }
 }

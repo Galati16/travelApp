@@ -68,10 +68,11 @@ async function getWeather(userData, geoData) {
     try {
         const data = await respond.json();
         const weatherData = {
-            Temp: data.data[0].temp,
+            temp: data.data[0].temp,
             windSpeed: data.data[0].wind_spd,
             precip: data.data[0].precip,
-            weatherDescription: data.data[0].weather.description
+            weatherDescription: data.data[0].weather.description,
+            country: data.data[0].country_code
         }
         return weatherData
     } catch (error) {
@@ -125,11 +126,12 @@ buttonElement.addEventListener('click', function(evn) {
         .then(function(geoData) {
             getWeather(userData, geoData)
                 .then(function(weatherData) {
-                    console.log('hier unten', weatherData, geoData, userData);
                     getBackgroundPic(userData).
                     then(function(picData) {
-                        //adjust html
-
+                        const allData = userData + geoData + weatherData + geoData;
+                        console.log(allData)
+                            //adjust html
+                        myLib.addTravelDisToHtml({ link: picData }, weatherData, geoData, userData)
 
                     })
                 });
@@ -138,4 +140,6 @@ buttonElement.addEventListener('click', function(evn) {
 
         });
 })
+
+
 export { interactWithServer }
