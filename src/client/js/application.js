@@ -113,11 +113,18 @@ async function getLonLat(userData) {
  */
 const corsvar = 'https://cors-anywhere.herokuapp.com/';
 const buttonElement = document.getElementById('getLocationData');
+const removeAll = document.getElementById('navi_buttons_left');
+
 //const sections = document.getElementsByTagName('section');
 //const numberOfSections = document.getElementsByTagName('section').length; //MEMO:=4
 //const navLink = document.getElementsByTagName('li');
 
 // Scroll to section on link click
+removeAll.addEventListener('click', function(evn) {
+    console.log('remove all');
+    const allLocationCards = document.querySelectorAll('[id^=travelDest]');
+    allLocationCards.forEach(element => element.remove());
+});
 
 buttonElement.addEventListener('click', function(evn) {
     evn.preventDefault();
@@ -131,7 +138,7 @@ buttonElement.addEventListener('click', function(evn) {
                         const allData = userData + geoData + weatherData + geoData;
                         console.log(allData)
                             //adjust html
-                        myLib.addTravelDisToHtml({ link: picData }, weatherData, geoData, userData)
+                        myLib.addTravelDisToHtml(evn, { link: picData }, weatherData, geoData, userData)
 
                     })
                 });
@@ -140,6 +147,7 @@ buttonElement.addEventListener('click', function(evn) {
 
         });
 })
+
 
 
 export { interactWithServer }

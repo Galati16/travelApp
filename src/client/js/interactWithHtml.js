@@ -23,7 +23,7 @@ function getDaysToTrip(startDay) {
     return days;
 };
 
-function addTravelDisToHtml(picData, weatherData, geoData, userData) {
+function addTravelDisToHtml(event, picData, weatherData, geoData, userData) {
     const nrSections = document.getElementsByTagName('section').length
         //html to add:
     const htmlToAdd = ` <section id="travelDest${nrSections}" class="nested_pictures" > 
@@ -40,10 +40,17 @@ function addTravelDisToHtml(picData, weatherData, geoData, userData) {
                                <p > Wind Speed:<br> ${Math.round(weatherData.windSpeed*3.6)} Km/h </p> 
                             </div > 
                             <p style = "italic" >  ${weatherData.weatherDescription} </p>
-                            <a id = "remove" class = "button" > Remove this travel location! </a>
+                            <a class = "removeLocationCard button" > Remove this travel location! </a>
                         </div> 
                     </section >`;
     document.getElementById('start').insertAdjacentHTML("afterend", htmlToAdd);
+
+    const removeButtonElement = document.getElementsByClassName('removeLocationCard');
+    removeButtonElement[0].addEventListener('click', function(evn) {
+        evn.preventDefault();
+        const ElementToBeRemoved = evn.target.closest("section");
+        ElementToBeRemoved.remove()
+    }, { once: true });
 };
 
 //style="background: rgba(0, 0, 0, 0) url(&quot;&quot;) repeat scroll 0% 0%;"
