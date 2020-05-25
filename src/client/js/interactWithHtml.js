@@ -5,6 +5,7 @@ function getFormValues() {
     const endDay = document.getElementById('endDate').value.replace(/\s/g, '');
     //get value for timer 
     const daysAway = myLib.getDaysToTrip(startDay);
+
     const locationData = {
         city: city,
         startDay: startDay,
@@ -14,12 +15,13 @@ function getFormValues() {
     return locationData
 };
 
+
 function getDaysToTrip(startDay) {
 
     var countDownDate = new Date(startDay).getTime();
     var now = new Date().getTime();
     var distance = countDownDate - now;
-    var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+    var days = Math.ceil(distance / (1000 * 60 * 60 * 24));
     return days;
 };
 
@@ -28,18 +30,20 @@ function addTravelDisToHtml(event, picData, weatherData, geoData, userData) {
         //html to add:
     const htmlToAdd = ` <section id="travelDest${nrSections}" class="nested_pictures" > 
                         <div class="pictureHeader flexColumn" style="background: url(${picData.link})">
-                             <H2> ${userData.city}, ${weatherData.country} </H2> 
-                              <p > (${userData.startDay} to ${userData.endDay}) </p>
-                              <p > Your trip is <span class = 'h2AlikeP'> ${userData.daysAway} </span> days away.</p>
+                            <div>
+                                <H2> ${userData.city.charAt(0).toUpperCase() + userData.city.slice(1).toLowerCase()}, ${geoData.country} </H2> 
+                                <p > (${userData.startDay} to ${userData.endDay}) </p>
+                            </div>
+                            <p > Your trip is <span class = 'h2AlikeP'> &nbsp;${userData.daysAway}&nbsp;</span> days away.</p>
                         </div>
                         <div class="data">
-                            <H2> Typical Weather: </h2> 
+                            <H2> ${weatherData.serviceType}: </h2> 
                             <div class = "weatherBlock" >
-                               <p > Temperature:<br> ${weatherData.temp}°C </p> 
-                               <p > Precipitation: <br>${weatherData.precip} mm/h</p> 
-                               <p > Wind Speed:<br> ${Math.round(weatherData.windSpeed*3.6)} Km/h </p> 
+                               <p > Temperature:&nbsp; <br> ${weatherData.temp}°C </p> 
+                               <p > Precipitation:&nbsp; <br>${Math.round(weatherData.precip).toFixed(1)} mm/h</p> 
+                               <p > Wind Speed:&nbsp; <br> ${Math.round(weatherData.windSpeed*3.6)} Km/h </p> 
                             </div > 
-                            <p style = "italic" >  ${weatherData.weatherDescription} </p>
+                            <p style = "italic" >  ${weatherData.weatherDescription}  </p>
                             <a class = "removeLocationCard button" > Remove this travel location! </a>
                         </div> 
                     </section >`;

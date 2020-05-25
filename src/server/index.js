@@ -18,7 +18,7 @@ app.use(bodyParser.json());
 
 console.log(__dirname)
 
-// for Geo
+/* // for Geo
 const geoNamesUser = process.env.GEODE_USERNAME;
 const geoNameBaseURL = 'http://api.geonames.org/searchJSON?username=' + geoNamesUser + '&placename='
 
@@ -26,23 +26,23 @@ const geoNameBaseURL = 'http://api.geonames.org/searchJSON?username=' + geoNames
 //for WeatherIO:
 const wioKey = process.env.WEATHERBIT_KEY;
 //for PIXABAY
-const pixabayKey = process.env.PIXABAY_KEY;
+const pixabayKey = process.env.PIXABAY_KEY; */
 
 app.get('/', function(req, res) {
     res.sendFile('dist/index.html')
         //res.sendFile(path.resolve('src/client/views/index.html'))
-})
+});
 
 // designates what port the app will listen to for incoming requests
 app.listen(8080, function() {
     console.log('Example app listening on port 8080!')
-})
+});
 
 
 
 
 
-async function getWebApiData(url) {
+/* async function getWebApiData(url) {
     const respond = await fetch(url)
     try {
         const data = await respond.json();
@@ -52,13 +52,14 @@ async function getWebApiData(url) {
         alert('Not a valid German zip code!Try something like 22559:)');
         console.log('error is:', error);
     }
-};
+}; */
 
-app.post("/analyze", (req, res) => {
-        console.log('im analyze post:', req.body)
-        const data = req.body;
-    })
-    //getWebApiData(geoNameBaseURL + data.city);
+app.post("/store", (req, res) => {
+    console.log('im analyze post:', req.body)
+    const data = req.body;
+    console.log(data)
+});
+//getWebApiData(geoNameBaseURL + data.city);
 
 /* textapi.sentiment({
     url: req.body.text

@@ -3,33 +3,33 @@
 
 <head>
     <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Travel Blog</title>
 </head>
 
 <body>
 
-    <header class="box">
+    <header>
 
-        <div class="button2 navi_buttons_left">
-            Clear All!
+        <div class="button2" id="navi_buttons_left">
+            Clear all!
         </div>
 
         <h1>Travel Weather</h1>
 
-        <div class="navi_buttons_right">
-            <a href="../page_not_available/page_not_available.html" class="button2">contact us</a>
-            <a href="../page_not_available/page_not_available.html" id="social"></a>
+        <div class="button2" id="navi_buttons_right">
+            Contact us!
         </div>
 
     </header>
 
-    <main class="box">
+    <main>
         <section id="start" class="nested_pictures">
             <h2>Enter a city to start planing:</h2>
-            <input id="cityName" type="text" name="input" value="" placeholder="Enter a city here to start.">
+            <input id="cityName" type="text" name="input" value="" placeholder="Enter a city here to start." autofocus>
             <h2>Enter the time periode of your travel:</h2>
-            <input id="startDate" type="text" name="input" value="" placeholder="Enter the first day of your travel period (MM/DD/JJJJ).">
-            <input id="endDate" type="text" name="input" value="" placeholder="Enter the last day of your travel period (MM/DD/JJJJ).">
+            <input id="startDate" type="text" name="input" value="" placeholder="First day (MM/DD/JJJJ)">
+            <input id="endDate" type="text" name="input" value="" placeholder="Last day (MM/DD/JJJJ)">
             <a id="getLocationData" class="button">Get data on travel location!</a>
         </section>
 

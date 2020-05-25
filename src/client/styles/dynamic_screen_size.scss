@@ -1,14 +1,17 @@
 @media(min-width: 600px) and (max-width:900px) {
     /* ------------ homepage-------------- */
+    body {
+        font-size: 25px;
+    }
     main {
-        grid-template-columns: 40% 60%;
-        grid-auto-rows: minmax(70vh, auto) minmax(70vh, auto);
+        grid-template-columns: 1fr 1fr;
+        grid-auto-rows: minmax(70vh, auto);
     }
     #start {
-        width: 35vw;
+        border-radius: 15%;
     }
     /* ------------blog pages-------------- */
-    .blogbox {
+    /*     .blogbox {
         grid-template-columns: 70% 30%;
         grid-template-rows: minmax(300px, auto) minmax(300px, auto);
         grid-template-areas: "text topic" "text topic";
@@ -16,13 +19,15 @@
     .topic_picture {
         width: 17vw;
         height: 15vw;
-    }
+    } */
 }
 
 @media(min-width:901px) {
     /* ------------ homepage-------------- */
+    body {
+        font-size: 25px;
+    }
     main {
-        font-size: 24px;
         grid-template-columns: 1fr 1fr;
         grid-auto-rows: 75vh 75vh;
     }
@@ -30,7 +35,7 @@
         width: 50vw;
     }
     /* ------------blog pages-------------- */
-    .blogbox {
+    /*     .blogbox {
         display: grid;
         grid-template-columns: 70% 30%;
         grid-template-rows: minmax(300px, auto) minmax(300px, auto);
@@ -40,5 +45,5 @@
     .topic_picture {
         width: 24vw;
         height: 15vw;
-    }
+    } */
 }

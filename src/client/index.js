@@ -16,5 +16,5 @@ export {
     interactWithServer,
     getFormValues,
     getDaysToTrip,
-    addTravelDisToHtml
+    addTravelDisToHtml,
 }

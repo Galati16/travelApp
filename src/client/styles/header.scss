@@ -2,13 +2,11 @@
 
 header {
     font-family: 'Courier New', Courier, monospace;
-    background-color: white;
     grid-area: hd;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
-    font-size: 1em;
     /* border-bottom: 0.2em solid whitesmoke; */
 }
 
@@ -17,15 +15,16 @@ header {
 
 .button2 {
     font-family: 'Courier New', Courier, monospace;
-    background-color: transparent;
+    background-color: rgba($color: #000000, $alpha: 0.02);
     font-weight: 600;
-    color: #fffff8;
     padding: 3px 3px;
     border-radius: 30%;
     margin: 3px;
-    border: 1px solid rgba($color: #000000, $alpha: 0.4);
+    border: 1px solid rgba($color: #000000, $alpha: 0.25);
     color: #444;
-    font-size: 1.4em;
+    font-size: 0.5em;
+    line-height: 1.7;
+    text-align: center;
 }
 
 .button2:hover {
@@ -33,7 +32,7 @@ header {
     cursor: pointer;
     border: 2px solid whitesmoke;
     padding: 5px 3px;
-    color: white
+    color: white;
 }
 
 
@@ -43,15 +42,13 @@ header {
     display: flex;
     flex-direction: row;
     justify-content: center;
-    align-items: center;
-    padding: 3px 3px;
 }
 
 .navi_buttons_right {
     display: flex;
     flex-direction: row;
     justify-content: flex-right;
-    align-items: center;
+    //align-items: center;
 }
 
 
@@ -59,14 +56,13 @@ header {
 
 h1 {
     font-family: Impact, Charcoal, sans-serif;
-    font-size: 35px;
+    font-size: 1.5em;
     font-weight: 500;
     color: white;
-    background: #444;
-    border: 5px solid whitesmoke;
+    background: rgb(70, 70, 70);
+    border: 0.1em solid whitesmoke;
     border-radius: 70%;
-    padding: 25px;
+    padding: 0.9em;
     text-align: center;
-    width: 400px;
     z-index: 100;
 }

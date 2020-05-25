@@ -1,119 +1,157 @@
-    body {
-        font-family: 'Courier New', Courier, monospace;
-        font-size: 12px;
-        display: grid;
-        grid-template-rows: 80px auto 10vh;
-        grid-template-areas: "hd" "main" "ft";
-        background-color: white;
-        justify-content: stretch;
+html {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 18px;
+    display: grid;
+    grid-template-rows: 60px auto 10vh;
+    grid-template-areas: "hd" "main" "ft";
+    background-color: white;
+    justify-content: stretch;
+    margin: 0 auto;
+    max-width: 50em;
+}
+
+a {
+    text-decoration: none;
+}
+
+main {
+    font-size: 0.6em;
+    grid-area: main;
+    display: grid;
+    grid-template-columns: 100%;
+    grid-auto-rows: 60vh;
+    justify-content: stretch;
+    background-color: whitesmoke;
+    //padding: 10px 0px;
+    //width: auto;
+}
+
+.nested_pictures {
+    //height: 100%;
+    p {
+        color: #fffff8;
+        font-size: 1.1em;
+        margin: 1px;
+        font-weight: 700;
     }
-    
-    a {
-        text-decoration: none;
-    }
-    
-    main {
-        grid-area: main;
-        display: grid;
-        grid-template-columns: 100%;
-        grid-auto-rows: 70vh;
-        justify-content: stretch;
-        background-color: whitesmoke;
-        padding: 10px 0px;
-    }
-    
-    .nested_pictures {
-        p {
-            color: #fffff8;
-            margin: 1px;
-            font-weight: 700;
-        }
-        display: flex;
-        flex-direction: column;
-        justify-content: stretch;
-        align-items: center;
-        border: 2px solid whitesmoke;
-        padding: 5px;
-        text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: stretch;
+    align-items: center;
+    border: 2px solid whitesmoke;
+    text-align: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    margin:3px;
+    .pictureHeader {
+        flex: 1;
+        width: 100%;
         background-size: cover;
         background-repeat: no-repeat;
-        .pictureHeader {
-            width: 100%;
-            background-size: cover;
-            background-repeat: no-repeat;
-            height: 40vh; //minmax(40vh, auto);
-        }
-        .data {
-            background-color: #444;
-            color: white;
-            display: flex;
-            flex-direction: column;
-            width: 100%;
-            align-items: center;
-            justify-content: space-evenly;
-            .weatherBlock {
-                display: flex;
-                justify-content: space-evenly;
-                p {
-                    margin: 0.1 px;
-                }
-            }
+        border-bottom: white solid 1px;
+        height: minmax(30vh, auto);
+        p {
+            font-size: 1.4em;
         }
     }
-    
-    .flexColumn {
+    .data {
+        background-color: #444;
+        color: white;
         display: flex;
         flex-direction: column;
-        justify-content: space-evenly;
+        width: 100%;
         align-items: center;
+        justify-content: space-evenly;
+        .weatherBlock {
+            flex: 1;
+            display: flex;
+            justify-content: space-evenly;
+            height: 100%; //TODO
+            p {
+                margin: 0.5 px;
+            }
+        }
+        h2 {
+            margin-bottom: 0.5em;
+            margin-top: 1em;
+        }
+        .removeLocationCard {
+            margin: 0.8em;
+        }
     }
-    
-    #start {
-        background-image: url("../media/red_canyon.JPG")
-    }
-    /* Caption on nested pictures */
-    
+}
+
+.flexColumn {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+#start {
+    padding-top: 2em;
+    background-image: url("../media/red_canyon.JPG");
+    max-height: 35em;
+    border-radius: 30%;
+    border: 1px solid rgba($color: #000000, $alpha: 0.25);
+}
+
+.travelDest {
     h2 {
-        text-align: center;
-        color: #fffff8;
-        border-top: 2px solid #fffff8;
-        border-bottom: 2px solid #fffff8;
-        background-color: rgba(68, 68, 68, 0.3);
-        margin-bottom: 10px;
-        padding-bottom: 2px;
+        margin-bottom: 0;
     }
-    
-    .h2AlikeP {
-        text-align: center;
-        color: #fffff8;
-        background-color: rgba(68, 68, 68, 0.3);
-        margin: 0px;
-        border-top: 2px solid #fffff8;
-        border-bottom: 2px solid #fffff8;
-    }
-    
-    #getLocationData {
-        margin-top: 20px;
-    }
-    /* Button for "hier mehr" Button, it gets wider when cursor hovers over it */
-    
-    .button {
-        font-family: 'Courier New', Courier, monospace;
-        background-color: rgba($color: #000000, $alpha: 0.4);
-        font-weight: 500;
-        color: #fffff8;
-        padding: 3px 3px;
-        text-align: center;
-        font-size: 0.7em;
-        cursor: pointer;
-        width: 30%;
-        border: 2px solid #fffff8;
-        border-radius: 30%;
-        margin: 3px;
-    }
-    
-    .button:hover {
-        background-color: rgba(255, 253, 253, 0.1);
-        color: #fffff8;
-        width: 33%;
-    }
+}
+
+
+/* Caption on nested pictures */
+
+h2 {
+    text-align: center;
+    color: #fffff8;
+    border-top: 2px solid #fffff8;
+    border-bottom: 2px solid #fffff8;
+    background-color: rgba(68, 68, 68, 0.3);
+    margin-bottom: 0.5em;
+    margin-top: 2em;
+    padding-bottom: 2px;
+}
+
+.h2AlikeP {
+    text-align: center;
+    color: #fffff8;
+    background-color: rgba(68, 68, 68, 0.3);
+    margin: 0px;
+    border-top: 2px solid #fffff8;
+    border-bottom: 2px solid #fffff8;
+}
+
+#getLocationData {
+    margin-top: 20px;
+}
+
+
+/* Button for "hier mehr" Button, it gets wider when cursor hovers over it */
+
+.button {
+    font-family: 'Courier New', Courier, monospace;
+    background-color: rgba($color: #000000, $alpha: 0.4);
+    font-weight: 500;
+    color: #fffff8;
+    padding: 3px 3px;
+    text-align: center;
+    cursor: pointer;
+    width: 30%;
+    border: 2px solid #fffff8;
+    border-radius: 30%;
+    margin: 3px;
+}
+
+.button:hover {
+    background-color: rgba(255, 253, 253, 0.1);
+    color: #fffff8;
+    width: 33%;
+}
