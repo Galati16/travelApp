@@ -35,6 +35,7 @@ function interactWithServer(allData) {
 
 async function getBackgroundPic(userData) {
     // for pixabay.com
+    let picData = '';
     const API_KEY = '16246175-c1b47574cb1cde5e99fd86e69';
     const corsvar = 'https://cors-anywhere.herokuapp.com/';
     const url = "https://pixabay.com/api/?key=" + API_KEY + "&q=" + encodeURIComponent(userData.city) + '&orientation=horizontal';
@@ -48,38 +49,21 @@ async function getBackgroundPic(userData) {
     });
     try {
         const data = await respond.json();
-        const picData = data.hits[1].webformatURL;
-        if (data.hits.lenght <= 0) {
-            picData = 'https://pixabay.com/get/57e1d6434d51ad14f1dc84609629317c1139dfe2564c704c7d277bd6944ec750_640.jpg'
-        }
+        picData = data.hits[1].webformatURL;
         return picData;
     } catch (error) {
-
-        console.log('error is:', error);
+        picData = 'https://pixabay.com/get/57e1d6434d51ad14f1dc84609629317c1139dfe2564c704c7c2f7ed59e4acd51_640.jpg'
+        return picData
     }
 };
 
 
+
 async function getWeather(userData, geoData) {
     // for weatherbit.io
-    const key = 'c627a56641d3436e850950b7cf423119';
-    let url = '';
-    let i = 0;
-    let serviceType = '';
+    const vars = myLib.helperDecideWeatherService(userData, geoData);
 
-    //Decide whitch Weather Service to use:
-    if (userData.daysAway <= 5) {
-        // Weather Forcast reliable:
-        i = userData.daysAway;
-        url = `https://api.weatherbit.io/v2.0/forecast/daily?lat=${geoData.lat}&lon=${geoData.lon}&key=${key}`;
-        serviceType = 'Forcast';
-    } else {
-        // Weather Forcast not reliable or not available:
-        url = `https://api.weatherbit.io/v2.0/current?lat=${geoData.lat}&lon=${geoData.lon}&key=${key}`;
-        serviceType = 'Current Weather';
-    }
-
-    const respond = await fetch(corsvar + url, {
+    const respond = await fetch(corsvar + vars.url, {
         method: 'GET',
         headers: {
             'Content-Type': 'application/json',
@@ -90,11 +74,11 @@ async function getWeather(userData, geoData) {
     try {
         let data = await respond.json();
         const weatherData = {
-            temp: data.data[i].temp,
-            windSpeed: data.data[i].wind_spd,
-            precip: data.data[i].precip,
-            weatherDescription: data.data[i].weather.description,
-            serviceType: serviceType
+            temp: data.data[vars.day].temp,
+            windSpeed: data.data[vars.day].wind_spd,
+            precip: data.data[vars.day].precip,
+            weatherDescription: data.data[vars.day].weather.description,
+            serviceType: vars.type
         };
         return weatherData
     } catch (error) {
@@ -176,6 +160,7 @@ buttonElement.addEventListener('click', function(evn) {
                                 serviceType: weatherData.serviceType,
                                 link: picData
                             };
+
                             interactWithServer(allData);
 
                         });
@@ -191,4 +176,7 @@ buttonElement.addEventListener('click', function(evn) {
 
 
 
-export { interactWithServer }
+export {
+    interactWithServer,
+    getLonLat
+}

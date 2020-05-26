@@ -57,7 +57,6 @@ app.listen(8080, function() {
 app.post("/store", (req, res) => {
     console.log('im analyze post:', req.body)
     const data = req.body;
-    console.log(data)
 });
 //getWebApiData(geoNameBaseURL + data.city);
 
