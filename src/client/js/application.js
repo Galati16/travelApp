@@ -110,7 +110,6 @@ async function getLonLat(userData) {
         return GeoData
     } catch (error) {
         alert('City too small or spelled incorrectly!');
-        console.log('error is:', error);
     }
 };
 
