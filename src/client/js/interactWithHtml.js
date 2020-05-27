@@ -27,7 +27,7 @@ function getDaysToTrip(startDay) {
     var now = new Date().getTime();
     var distance = countDownDate - now;
     var days = Math.ceil(distance / (1000 * 60 * 60 * 24));
-    return days;
+    return Math.abs(days);
 };
 
 /**
