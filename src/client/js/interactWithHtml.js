@@ -1,3 +1,6 @@
+/**
+ * Reads user imput from input fields
+ */
 function getFormValues() {
     //read values from input fields:
     const city = document.getElementById('cityName').value.replace(/\s/g, '');
@@ -12,12 +15,14 @@ function getFormValues() {
         endDay: endDay,
         daysAway: daysAway
     };
+
     return locationData
 };
 
-
+/**
+ * calculates remaining days to trip
+ */
 function getDaysToTrip(startDay) {
-
     var countDownDate = new Date(startDay).getTime();
     var now = new Date().getTime();
     var distance = countDownDate - now;
@@ -25,6 +30,9 @@ function getDaysToTrip(startDay) {
     return days;
 };
 
+/**
+ * uses accululted data from API to add a new destination card to the html file
+ */
 function addTravelDisToHtml(event, picData, weatherData, geoData, userData) {
     const nrSections = document.getElementsByTagName('section').length
         //html to add:
@@ -49,15 +57,15 @@ function addTravelDisToHtml(event, picData, weatherData, geoData, userData) {
                     </section >`;
     document.getElementById('start').insertAdjacentHTML("afterend", htmlToAdd);
 
+    //Add remove button to each card
     const removeButtonElement = document.getElementsByClassName('removeLocationCard');
     removeButtonElement[0].addEventListener('click', function(evn) {
         evn.preventDefault();
-        const ElementToBeRemoved = evn.target.closest("section");
+        const ElementToBeRemoved = evn.target.closest('section');
         ElementToBeRemoved.remove()
     }, { once: true });
 };
 
-//style="background: rgba(0, 0, 0, 0) url(&quot;&quot;) repeat scroll 0% 0%;"
 export {
     addTravelDisToHtml,
     getFormValues,

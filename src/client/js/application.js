@@ -1,16 +1,8 @@
+/**
+ * Send collected data from API's to local server.
+ * @param {object} 
+ */
 function interactWithServer(allData) {
-
-
-    console.log("::: Form Submitted :::");
-    /*     fetch('http://localhost:8080/store', {
-            method: 'POST',
-            mode: 'cors',
-            headers: {
-                'Content-Type': 'application/json',
-                'Access-Control-Allow-Origin': '*'
-            },
-            body: JSON.stringify()
-        }) */
 
     fetch('http://localhost:8080/store', {
         method: 'POST',
@@ -21,24 +13,18 @@ function interactWithServer(allData) {
         },
         body: JSON.stringify(allData)
     });
-
-
-    /*         .then(function(res) {
-                return res.json()
-            })
-            .then(function(res) {
-                //document.getElementById("polarity").innerHTML = res.polarity + '   with a polarity confidence of ' + res.polarity_confidence;
-                //document.getElementById("subjectivity").innerHTML = res.subjectivity + '   with a subjectivity confidence of ' + res.subjectivity_confidence;
-                //document.getElementById("text").innerHTML = res.text;
-            }) */
 };
 
+/**
+ * gets background picture from https://pixabay.com
+ * @param {object} userData
+ */
 async function getBackgroundPic(userData) {
-    // for pixabay.com
     let picData = '';
     const API_KEY = '16246175-c1b47574cb1cde5e99fd86e69';
     const corsvar = 'https://cors-anywhere.herokuapp.com/';
-    const url = "https://pixabay.com/api/?key=" + API_KEY + "&q=" + encodeURIComponent(userData.city) + '&orientation=horizontal';
+    const url = 'https://pixabay.com/api/?key=' + API_KEY + '&q=' + encodeURIComponent(userData.city) + '&orientation=horizontal';
+
     const respond = await fetch(corsvar + url, {
         method: 'GET',
         headers: {
@@ -47,6 +33,7 @@ async function getBackgroundPic(userData) {
         },
         credentials: 'same-origin',
     });
+
     try {
         const data = await respond.json();
         picData = data.hits[1].webformatURL;
@@ -57,10 +44,12 @@ async function getBackgroundPic(userData) {
     }
 };
 
-
-
+/**
+ * gets background picture from https://weatherbit.io
+ * @param {object} userData
+ * @param {object} geoData
+ */
 async function getWeather(userData, geoData) {
-    // for weatherbit.io
     const vars = myLib.helperDecideWeatherService(userData, geoData);
 
     const respond = await fetch(corsvar + vars.url, {
@@ -71,6 +60,7 @@ async function getWeather(userData, geoData) {
         },
         credentials: 'same-origin',
     });
+
     try {
         let data = await respond.json();
         const weatherData = {
@@ -84,9 +74,12 @@ async function getWeather(userData, geoData) {
     } catch (error) {
         console.log('error is:', error);
     }
-
 };
 
+/**
+ * gets background picture from http://api.geonames.org
+ * @param {object} userData
+ */
 async function getLonLat(userData) {
     // for Geonames
     const corsvar = 'https://cors-anywhere.herokuapp.com/';
@@ -100,6 +93,7 @@ async function getLonLat(userData) {
         },
         credentials: 'same-origin',
     });
+
     try {
         const data = await respond.json();
         const GeoData = {
@@ -114,23 +108,19 @@ async function getLonLat(userData) {
 };
 
 /**
- * Define Global Variables
- * 
+ * Define Global Variables 
  */
 const corsvar = 'https://cors-anywhere.herokuapp.com/';
 const buttonElement = document.getElementById('getLocationData');
 const removeAll = document.getElementById('navi_buttons_left');
 
-//const sections = document.getElementsByTagName('section');
-//const numberOfSections = document.getElementsByTagName('section').length; //MEMO:=4
-//const navLink = document.getElementsByTagName('li');
-
-// Scroll to section on link click
+// remove all destination cards
 removeAll.addEventListener('click', function(evn) {
     const allLocationCards = document.querySelectorAll('[id^=travelDest]');
     allLocationCards.forEach(element => element.remove());
 });
 
+//add a new travel location and store data on server
 buttonElement.addEventListener('click', function(evn) {
     evn.preventDefault();
     const userData = myLib.getFormValues();
@@ -161,18 +151,10 @@ buttonElement.addEventListener('click', function(evn) {
                             };
 
                             interactWithServer(allData);
-
                         });
-
-
-
                 });
-
-
-
         });
 })
-
 
 
 export {
